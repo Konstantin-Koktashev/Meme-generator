@@ -29,9 +29,21 @@ body {
 nav {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding-right: 2em;
+  align-items: stretch;
+  box-shadow: 0 3px 6px 0 rgba(50,50,50,.3);
+  z-index: 1;
 }
+nav a{
+  font-family: sans-bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  text-decoration: none;
+
+}
+
+
 
 .logo {
   /* display: inline-block; */
@@ -43,9 +55,18 @@ nav {
 }
 
 .user-options {
-  width: 15%;
+  width: 20%;
   display: flex;
   justify-content: space-between;
+}
+
+.login{
+  background-color: #f3f0ec;
+  color: black;
+}
+.sign-up{
+  color: #fff;
+  background: #4d90fe;
 }
 
 /* Header Section */
@@ -70,8 +91,21 @@ main {
   overflow-y: auto;
   overflow-x: hidden;
 }
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
 
 .upload button {
+  min-width: 200px;
   background: #4d90fe;
     padding: 1em 3em;
     font-weight: 600;
@@ -83,20 +117,19 @@ main {
     border: none;
     border-radius: 13px;
 }
+.upload-btn-wrapper:focus{
+  background-color: black;
+}
 
 .meme-template {
   border: none;
   min-width: 200px;
-  padding: 10px 24px 14px;
-  border-radius: 4px;
-  display: -ms-inline-flexbox;
+  padding: 1em 1.8em 0.8em;
+  border-radius: 10px;
   transition: all .2s linear;
-  -webkit-box-shadow: 0 3px 6px 0 rgba(0,0,0,.14);
   box-shadow: 0 3px 6px 0 rgba(0,0,0,.14);
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: 500;
-  line-height: 18px;
-  letter-spacing: 0;
   background-color: #383e45;
   color: #fff
 }
