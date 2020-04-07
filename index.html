@@ -25,21 +25,32 @@
                 <button class="btn">Upload a file</button>
                 <input type="file" name="myfile" />
               </div>
-            <!-- <button class="upload-img">
-                Upload image
-            </button> -->
             <p>Or</p>
         </section>
         <button class="meme-template">
             Select meme template 
         </button>
-    </main>
+
+        <section class="meme-template-modal hide">  
+            <div class="images-container">
+            </div> 
+        </section>
+    <section class="upload-modal hide">   
+        <canvas id="my-canvas" height="400" width="400" onclick="onDraw(event)"></canvas>
+        <div class="user-panel">
+            <h2>Meme editor</h2>
+            <section class="user-controls">
+                <button> Add Text</button>
+                <button> Add Image</button>
+                <button class="generate">Generate meme</button>
+            </section>
+        </div>
+    </section> 
+</main>
     <footer>
         <h3>IloveMeme's 2020 C - Your meme generator </h3>
     </footer>
-    <section class="meme-template-modal hide">   
-        <!-- <canvas id="my-canvas" height="400" width="400" onclick="onDraw(event)"></canvas> -->
-    </section>
+
 
     <script src="javascript/canvas-services.js"></script>
     <script src="javascript/canvas-controller.js"></script>
