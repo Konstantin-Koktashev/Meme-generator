@@ -6,7 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body onload="onInit()">
     <nav>
         <div class="logo"></div>
         <section class="user-options">
@@ -36,22 +36,58 @@
             </div> 
         </section>
     <section class="upload-modal hide">   
-        <canvas id="my-canvas" height="400" width="400" onclick="onDraw(event)"></canvas>
-        <div class="user-panel">
-            <h2>Meme editor</h2>
-            <section class="user-controls">
-                <button> Add Text</button>
-                <button> Add Image</button>
-                <button class="generate">Generate meme</button>
-            </section>
+        <div class="canvas-wrapper">
+            <canvas id="my-canvas" height="400" width="400"></canvas>
         </div>
+        <div class="user-panel">
+            <section class="panel-header">
+            <h2>Meme editor</h2>
+        </section>
+            <section class="user-controls">
+                <div class="upper-buttons">
+                    <div class="inner-text">
+                        <section class="inside-text-header">
+                            <h5>Text Inside </h5>
+                        </section>
+                        <section class="icon">
+                            <img src="icons/innerText.svg" >
+                        </section>
+                    </div>
+                    <div class="outer-text">
+                        <section class="outer-text-header">
+                            <h5>Text Outside </h5>
+                        </section>
+                        <section class="icon">
+                            <img src="icons/outerText.svg" >
+                        </section>
+                    </div>
+                <!-- <button class="text-location"> Text Inside <img src="/icons/innerText.svg" alt=""></button>
+                <button class="text-location"> Text outside <img src="" alt=""></button> -->
+            </div>
+            <div class="middle-buttons">
+                <button class="add-image"> 
+                    <div class="icon">
+                        <img src="icons/image.svg" alt="">
+                    </div>
+                    <span>Add Image</span>
+                </button>
+                <button class="add-text">
+                    <div class="icon">
+                        <img src="icons/text.svg" alt="">
+                    </div>
+                    <span>Add Text</span>
+                </button>
+            </div>
+        </section>
+        <div class="generate">
+            <button >Generate meme</button>
+        </div>
+    </div>
     </section> 
 </main>
     <footer>
         <h3>IloveMeme's 2020 C - Your meme generator </h3>
     </footer>
-
-
     <script src="javascript/canvas-services.js"></script>
     <script src="javascript/canvas-controller.js"></script>
 </body>
