@@ -5,10 +5,11 @@ var gId=101
 const KEY = "memes";
 var gPageIdx=1
 var gImgs = [
-  { id: 1, url: "../images/meme-imgs (square)/1.jpg", keywords: ["happy"] },
+  { id: 1, url: "../images/meme-imgs(square)/1.jpg", keywords: ["happy"] },
 ];
 var gMemes = [];
 var gFilter;
+var gCurrentImg;
 // var gMeme = {
 //   selectedImgId: 5,
 //   selectedLineIdx: 0,
@@ -30,7 +31,7 @@ var gFilter;
 // ];
 
 function creatMemes() {
-  for (var i = 0; i < 19; i++) {
+  for (var i = 0; i < 18; i++) {
     gMemes.push(creatMeme());
   }
 }
@@ -49,8 +50,8 @@ function creatMeme(category) {
 
 function loadImages() {
   var images = [];
-  for (var i = 0; i < 19; i++) {
-    var image = { id: gId++, url:`../images/meme-imgs (square)/${i + 1}.jpg`};
+  for (var i = 0; i < 18; i++) {
+    var image = { id: gId++, url:`../images/meme-imgs(square)/${i + 1}.jpg`};
     images.push(image);
   }
   gImgs = images;
@@ -69,8 +70,8 @@ function updateCanvas() {
 
 function getMemesForDisplay(filter){
   if(!filter) filter='all'
-  var memes=gMemes[0]
-  return [memes]
+  var memes=gMemes
+  return memes
 }
 
 function _saveBooksToStorage() {
