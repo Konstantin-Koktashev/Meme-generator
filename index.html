@@ -1,94 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body onload="onInit()">
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body onload="onInit()">
     <nav>
-        <div class="logo"></div>
-        <section class="user-options">
-            <a  href="" class="sign-up">Sign Up</a>
-            <a href="" class="login">Login</a>
-        </section>
+      <div class="logo"></div>
+      <section class="user-options">
+        <a href="" class="sign-up">Sign Up</a>
+        <a href="" class="login">Login</a>
+      </section>
     </nav>
     <header>
-        <h1>Meme Generator</h1>
-        <p>Create a meme from JPG, GIF or PNG images.
-            Edit your image and make a meme. </p>
+      <h1>Meme Generator</h1>
+      <p>
+        Create a meme from JPG, GIF or PNG images. Edit your image and make a
+        meme.
+      </p>
     </header>
     <main>
-        <section class="upload">
-            <div class="upload-btn-wrapper">
-                <button class="btn">Upload a file</button>
-                <input type="file" name="myfile" />
-              </div>
-            <p>Or</p>
-        </section>
-        <button class="meme-template">
-            Select meme template 
-        </button>
+      <section class="upload">
+        <div class="upload-btn-wrapper">
+          <button class="btn">Upload a file</button>
+          <input type="file" name="myfile" />
+        </div>
+        <p>Or</p>
+      </section>
+      <button class="meme-template">
+        Select meme template
+      </button>
 
-        <section class="meme-template-modal hide">  
-            <div class="images-container">
-            </div> 
+      <section class="meme-template-modal hide">
+          <section class="meme-template-header">
+        <h3>Pick Your Meme</h3>
+    </section>
+        <section class="search-bar">
+          <label for="search"></label>
+          <input
+            type="text"
+            id="search"
+            name="search-bar"
+            placeholder="Search here"
+          />
         </section>
-    <section class="upload-modal hide">   
+        <div class="cards-container">
+          <!-- <article class="meme">
+            <section class="img-container">
+                <img src="images/meme-imgs (square)/13.jpg" alt="meme Image" />
+            </section>
+            <section class="card-body">
+                <button onclick="addMeme('${book.id}')"> Add Meme</button>
+              </section>
+          </article> -->
+        </div>
+      </section>
+
+
+      <section class="upload-modal hideme">
         <div class="canvas-wrapper">
-            <canvas id="my-canvas" height="400" width="400"></canvas>
+          <canvas id="my-canvas" height="400" width="400"></canvas>
         </div>
         <div class="user-panel">
-            <section class="panel-header">
+          <section class="panel-header">
             <h2>Meme editor</h2>
-        </section>
-            <section class="user-controls">
-                <div class="upper-buttons">
-                    <div class="inner-text">
-                        <section class="inside-text-header">
-                            <h5>Text Inside </h5>
-                        </section>
-                        <section class="icon">
-                            <img src="icons/innerText.svg" >
-                        </section>
-                    </div>
-                    <div class="outer-text">
-                        <section class="outer-text-header">
-                            <h5>Text Outside </h5>
-                        </section>
-                        <section class="icon">
-                            <img src="icons/outerText.svg" >
-                        </section>
-                    </div>
-                <!-- <button class="text-location"> Text Inside <img src="/icons/innerText.svg" alt=""></button>
-                <button class="text-location"> Text outside <img src="" alt=""></button> -->
+          </section>
+          <section class="user-controls">
+            <div class="upper-buttons">
+              <div class="inner-text">
+                <section class="inside-text-header">
+                  <h5>Text Inside</h5>
+                </section>
+                <section class="icon">
+                  <img src="icons/innerText.svg" />
+                </section>
+              </div>
+              <div class="outer-text">
+                <section class="outer-text-header">
+                  <h5>Text Outside</h5>
+                </section>
+                <section class="icon">
+                  <img src="icons/outerText.svg" />
+                </section>
+              </div>
             </div>
             <div class="middle-buttons">
-                <button class="add-image"> 
-                    <div class="icon">
-                        <img src="icons/image.svg" alt="">
-                    </div>
-                    <span>Add Image</span>
-                </button>
-                <button class="add-text">
-                    <div class="icon">
-                        <img src="icons/text.svg" alt="">
-                    </div>
-                    <span>Add Text</span>
-                </button>
+              <button class="add-image">
+                <div class="icon">
+                  <img src="icons/image.svg" alt="" />
+                </div>
+                <span>Add Image</span>
+              </button>
+              <button class="add-text">
+                <div class="icon">
+                  <img src="icons/text.svg" alt="" />
+                </div>
+                <span>Add Text</span>
+              </button>
             </div>
-        </section>
-        <div class="generate">
-            <button >Generate meme</button>
+          </section>
+          <div class="generate">
+            <button>Generate meme</button>
+          </div>
         </div>
-    </div>
-    </section> 
-</main>
+      </section>
+    </main>
     <footer>
-        <h3>IloveMeme's 2020 C - Your meme generator </h3>
+      <h3>IloveMeme's 2020 C - Your meme generator</h3>
     </footer>
+    <script src="javascript/storage-service.js"></script>
+    <script src="javascript/utils-service.js"></script>
+    <script src="javascript/time-service.js"></script>
     <script src="javascript/canvas-services.js"></script>
     <script src="javascript/canvas-controller.js"></script>
-</body>
+  </body>
 </html>
