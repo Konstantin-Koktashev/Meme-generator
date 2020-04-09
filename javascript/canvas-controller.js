@@ -49,7 +49,7 @@ function drawCanvasImgText(id) {
   img.onload = () => {
     gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
     gCurrentMeme.lines.forEach(line=>{
-      setCanvasText(line.text, line.xPosition, line.yPosition, undefined, undefined, 60)
+      setCanvasText(line.text, line.xPosition, line.yPosition, line.fillStyle, undefined, 60)
     })
 
   };
@@ -91,11 +91,29 @@ function onValueChange(el) {
 }
 
 function onAddNewLine(){
-  debugger
+  document.querySelector('.remove-line').classList.remove('hidden');
   addNewLine()
   
 }
 
+function onRemoveLine(){
+  removeLine()
+}
+
+function onIncreaseFontSize(){
+  increaseFontSize()
+}
+
+function onDecreaseFontSize(){
+  decreaseFontSize()
+}
+
+function onMoveLineUp(){
+  switchLineUp()
+}
+function onMoveLineDown(){
+  switchLineDown()
+}
 
 
 

@@ -93,6 +93,12 @@
                 </div>
                 <span>Add Line</span>
               </button>
+              <button class="add-text remove-line hidden" onclick="onRemoveLine()">
+                <div class="icon">
+                  <img src="icons/minus.svg"/>
+                </div>
+                <span>Remove Line</span>
+              </button>
               <input type="text" name="meme-text" onkeyup="onValueChange(this)" placeholder="Enter Text">
             </div>
             <section class="text-edit">
@@ -125,8 +131,8 @@
                   </div>
                   <span>Font Size</span>
                   <div class="plus-minus-icons">
-                    <img src="icons/plus.svg">
-                    <img src="icons/minus.svg">
+                    <img src="icons/plus.svg" onclick="onIncreaseFontSize()">
+                    <img src="icons/minus.svg" onclick="onDecreaseFontSize()">
                   </div>
                 </a>
                 <a class="change-text up-down">
@@ -143,10 +149,10 @@
                   <div class="icon">
                     <img src="icons/crop.svg" >
                   </div>
-                  <span>Move Line</span>
+                  <span>Pick Line</span>
                     <div class="up-down-icons">
-                      <img src="icons/arrow-up.svg">
-                      <img src="icons/arrow-down.svg">
+                      <img src="icons/arrow-up.svg" onclick="onMoveLineUp()">
+                      <img src="icons/arrow-down.svg" onclick="onMoveLineDown()">
                     </div>
                 </a>
             </section>

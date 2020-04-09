@@ -51,7 +51,7 @@ function creatMeme(category) {
   if (!category) category = "random";
   return {
     text: "Enter Text Here",
-    fontSize: 44,
+    // fontSize: 44,
     font: "Impact",
     align: "center",
     color: "white",
@@ -60,7 +60,10 @@ function creatMeme(category) {
     id: gId++,
     category,
     lines: [
-      { text: "Enter Text Here", size: 40, align: "left", color: "red" },
+      { text: "Enter Text Here", size: 40, align: "left", color: "red", fillStyle : "white",
+      strokeStyle : "black",
+      fontSize : "30",
+      fontFamily : "impact" },
 
     ],
   };
@@ -100,11 +103,44 @@ function setPosition() {
 function generateMeme() {}
 
 function addNewLine(){
-  gCurrentMeme.lines.push({ text: "Enter Text Here", size: 40, align: "left", color: "red" })
+  gCurrentMeme.lines.push({ text: "Enter Text Here", size: 40, align: "left", color: "red", fillStyle : "white",
+  strokeStyle : "black",
+  fontSize : "30",
+  fontFamily : "impact" })
+  gCurrentMeme.selectedLineIdx++
+  redrawCanvas()
+
+}
+
+function removeLine(){
+  --gCurrentMeme.selectedLineIdx
+  if(gCurrentMeme.lines.length===2) {
+    document.querySelector('.remove-line').classList.add('hidden');
+    gCurrentMeme.lines.pop()
+    redrawCanvas()
+    return};
+  gCurrentMeme.lines.pop()
+  redrawCanvas()
+}
+
+function increaseFontSize(){
+  gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].size+10
+  redrawCanvas()
+}
+
+
+
+function decreaseFontSize(){
+  gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].size-10
+  redrawCanvas()
+}
+
+function redrawCanvas(){
   setPosition()
   gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
   drawCanvasImgText(gCurrentMeme.id)
 }
+
 
 function updateCanvas() {
   gCanvas = document.getElementById("my-canvas");
@@ -117,17 +153,19 @@ function getMemesForDisplay(filter) {
   return memes;
 }
 
-function moveLine(diff) {
-  gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].yPosition += parseInt(diff);
-}
 
-function updateFontSize(diff) {
-  gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].size += parseInt(diff);
-}
 
-function updateText(value) {
-  gCurrentMeme.lines[0].text = value;
-}
+// function moveLine(diff) {
+//   gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].yPosition += parseInt(diff);
+// }
+
+// function updateFontSize(diff) {
+//   gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].size += parseInt(diff);
+// }
+
+// function updateText(value) {
+//   gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].text = value;
+// }
 
 function setCanvasText(
   text,
@@ -149,12 +187,20 @@ function setCanvasText(
   gCtx.closePath();
 }
 
-function switchLine() {
-  if (gCurrentMeme.selectedLineIdx < gMeme.lines.length - 1) {
-    gCurrentMeme.selectedLineIdx++;
-  } else {
-    gCurrentMeme.selectedLineIdx = 0;
+function switchLineUp() {
+  debugger
+  if(gCurrentMeme.selectedLineIdx-1<0){
+    return;
   }
+  gCurrentMeme.selectedLineIdx--
+  setCurrTextInput();
+}
+
+function switchLineDown(){
+  if(gCurrentMeme.selectedLineIdx+1>gCurrentMeme.lines.length-1){
+    return;
+  }
+  gCurrentMeme.selectedLineIdx++
   setCurrTextInput();
 }
 
@@ -170,7 +216,7 @@ function findMeme(id) {
 
 function setCurrentMeme(meme) {
   gCurrentMeme = meme;
-  setCanvasText
+  // setCanvasText()
 }
 
 function _saveBooksToStorage() {

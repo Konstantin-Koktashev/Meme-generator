@@ -366,3 +366,8 @@ article button {
   justify-content: space-evenly;
 }
 
+
+
+.hidden{
+  visibility: hidden;
+}
