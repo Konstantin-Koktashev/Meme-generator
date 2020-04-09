@@ -21,7 +21,7 @@ function addMeme(id) {
   renderCanvas();
   setCurrentMeme(meme)
   setPosition()
-  drawImg(id);
+  drawCanvasImgText(id);
 }
 
 function hideTemplateModal() {
@@ -42,7 +42,7 @@ function hideMain() {
 function showMain() {
   document.querySelector(".main-page").classList.remove("hide");
 }
-function drawImg(id) {
+function drawCanvasImgText(id) {
   var img = new Image();
   var selectedImage = gImgs.find((img) => img.id + "" == id);
   img.src = selectedImage.url;
@@ -87,9 +87,14 @@ function renderMemesCards() {
 
 function onValueChange(el) {
   updateText(el.value);
-  drawImg(gCurrentMeme.id)
+  drawCanvasImgText(gCurrentMeme.id)
 }
 
+function onAddNewLine(){
+  debugger
+  addNewLine()
+  
+}
 
 
 

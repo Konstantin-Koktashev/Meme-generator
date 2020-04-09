@@ -61,7 +61,7 @@ function creatMeme(category) {
     category,
     lines: [
       { text: "Enter Text Here", size: 40, align: "left", color: "red" },
-      { text: "Enter Text Here", size: 40, align: "left", color: "red" }
+
     ],
   };
 }
@@ -81,14 +81,30 @@ function loadImages() {
 
 
 function setPosition() {
+  var length=gCurrentMeme.lines.length
       gCurrentMeme.lines[0].yPosition = percentage(gCanvas.height,5);
       gCurrentMeme.lines[0].xPosition =gCanvas.width / 2;
-      gCurrentMeme.lines[1].yPosition = percentage(gCanvas.height,97)
-      gCurrentMeme.lines[1].xPosition =gCanvas.width / 2;
+      if(length===2){
+        gCurrentMeme.lines[1].yPosition = percentage(gCanvas.height,97)
+        gCurrentMeme.lines[1].xPosition =gCanvas.width / 2;
+      }
+      if(length===3){
+        gCurrentMeme.lines[2].yPosition = percentage(gCanvas.height,15)
+        gCurrentMeme.lines[2].xPosition =gCanvas.width / 2;
+      }
+      if(length===4){
+        gCurrentMeme.lines[3].yPosition = percentage(gCanvas.height,25)
+        gCurrentMeme.lines[3].xPosition =gCanvas.width / 2;
+      }
 }
 function generateMeme() {}
 
-function renderImg() {}
+function addNewLine(){
+  gCurrentMeme.lines.push({ text: "Enter Text Here", size: 40, align: "left", color: "red" })
+  setPosition()
+  gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+  drawCanvasImgText(gCurrentMeme.id)
+}
 
 function updateCanvas() {
   gCanvas = document.getElementById("my-canvas");
