@@ -14,6 +14,10 @@
   font-family: sans-light;
   src: url(../fonts/OpenSans-SemiBold.ttf);
 }
+@font-face {
+  font-family: impact;
+  src: url(../fonts/impact.ttf);
+}
 
 body {
   width: 100vw;
@@ -49,7 +53,7 @@ nav a {
   /* text-indent: -9999px; */
   width: 100px;
   height: 82px;
-  background: url(../images/logo.svg);
+  background: url(../icons/AbstractDesign86.svg);
   background-size: 100px 82px;
 }
 
@@ -310,3 +314,54 @@ article button {
 .hideme {
   display: none;
 }
+
+
+/* Modal Editor Buttons */
+
+
+.text-edit-modal{
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+}
+.change-text-cog,.change-text{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1em;
+  letter-spacing: .3px;
+  text-align: center;
+  line-height: 1.1rem;
+  color:
+  #161616;
+  padding: 0;
+  overflow: hidden;
+  background:
+  #f5f5f5;
+  border-radius: 4px;
+  
+}
+
+.change-text-cog span, .change-text span {
+  flex-grow: 1;
+  align-self: center;
+}
+
+.change-text-cog .icon, .change-text .icon {
+  margin-right: 1em;
+  background: #4d90fe;
+}
+
+.change-text-cog img, .change-text img {
+  padding: 1em;
+}
+.change-text-color,.change-text-cog{
+  width: 100%;
+}
+
+.text-edit-modal span{
+  display: flex;
+  justify-content: space-evenly;
+}
+

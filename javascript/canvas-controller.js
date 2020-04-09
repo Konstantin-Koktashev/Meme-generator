@@ -1,7 +1,7 @@
 function onInit() {
   updateCanvas();
-  loadImages();
   creatMemes();
+  loadImages();
   renderMemesCards();
 }
 
@@ -14,10 +14,13 @@ function renderCanvas() {
 }
 
 function addMeme(id) {
+  var meme=findMeme(parseInt(id))
   hideTemplateModal();
   hideMain();
   showEditModal();
   renderCanvas();
+  setCurrentMeme(meme)
+  setPosition()
   drawImg(id);
 }
 
@@ -43,12 +46,15 @@ function drawImg(id) {
   var img = new Image();
   var selectedImage = gImgs.find((img) => img.id + "" == id);
   img.src = selectedImage.url;
-  debugger
-  var elImg = document.querySelector(`[data-id="${id}"]`);
   img.onload = () => {
-    gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height); //img,x,y,width,height
+    gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+    gCurrentMeme.lines.forEach(line=>{
+      setCanvasText(line.text, line.xPosition, line.yPosition, undefined, undefined, 60)
+    })
+
   };
 }
+
 
 function renderMemesCards() {
   // var filter = getFilter();
@@ -78,4 +84,38 @@ function renderMemesCards() {
   document.querySelector(".cards-container").innerHTML = strHtml.join("");
 }
 
+
+function onValueChange(el) {
+  updateText(el.value);
+  drawImg(gCurrentMeme.id)
+}
+
+
+
+
+
+
+
+function drawTextInBox(txt, font, x=gCanvas.width/5, y= gCanvas.height/16, w, h, angle) {
+  if(!w||!h){
+    w=gCanvas.width/2
+    h=100
+  }
+  if(!font) font="Comic Sans MS"
+  angle = angle || 0;
+  var fontHeight = 10;
+  var hMargin = 2;
+  gCtx.font = fontHeight + 'px ' + font;
+  gCtx.textAlign = 'left';
+  gCtx.textBaseline = 'top';
+  var txtWidth = gCtx.measureText(txt).width + 2 * hMargin;
+  gCtx.save();
+  gCtx.translate(x+w/2, y);
+  gCtx.rotate(angle);
+  gCtx.strokeRect(-w/2, 0, w, h);
+  gCtx.scale(w / txtWidth, h / fontHeight);
+  gCtx.translate(hMargin, 0)
+  gCtx.fillText(txt, -txtWidth/2, 0);
+  gCtx.restore();
+}
 

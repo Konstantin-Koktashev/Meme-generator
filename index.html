@@ -8,7 +8,8 @@
   </head>
   <body onload="onInit()">
     <nav>
-      <div class="logo"></div>
+      <div class="logo">
+      </div>
       <section class="user-options">
         <a href="" class="sign-up">Sign Up</a>
         <a href="" class="login">Login</a>
@@ -48,21 +49,13 @@
           />
         </section>
         <div class="cards-container">
-          <!-- <article class="meme">
-            <section class="img-container">
-                <img src="images/meme-imgs (square)/13.jpg" alt="meme Image" />
-            </section>
-            <section class="card-body">
-                <button onclick="addMeme('${book.id}')"> Add Meme</button>
-              </section>
-          </article> -->
         </div>
       </section>
-
     </section>
       <section class="upload-modal hide">
         <div class="canvas-wrapper">
-          <canvas id="my-canvas" height="0" width="0"></canvas>
+          <canvas id="my-canvas" height="0" width="0">
+          </canvas>
         </div>
         <div class="user-panel">
           <section class="panel-header">
@@ -90,17 +83,74 @@
             <div class="middle-buttons">
               <button class="add-image">
                 <div class="icon">
-                  <img src="icons/image.svg" alt="" />
+                  <img src="icons/image.svg" />
                 </div>
                 <span>Add Image</span>
               </button>
               <button class="add-text">
                 <div class="icon">
-                  <img src="icons/text.svg" alt="" />
+                  <img src="icons/text.svg" />
                 </div>
                 <span>Add Text</span>
               </button>
+              <input type="text" name="meme-text" onkeyup="onValueChange(this)" placeholder="Enter Text">
             </div>
+            <section class="text-edit">
+              <button class="change-text-cog change-text">
+                <div class="icon">
+                  <img src="icons/cogs.svg" />
+                </div>
+                <span>Change Text </span>
+              </button>
+                <div class="text-edit-modal">
+                <button class="change-text change-text-color">
+                  <div class="icon">
+                    <img src="icons/paint-format.svg" />
+                  </div>
+                  <span>Outline Color
+                  <input type="color" name="meme-color" onchange="ChangeMemeTextColor(this.value)" placeholder="Select Color">
+                </span>
+                </button>
+                <button class="change-text change-text-color">
+                  <div class="icon">
+                    <img src="icons/eyedropper.svg" />
+                  </div>
+                  <span>Text color
+                  <input type="color" name="meme-color" onchange="ChangeMemeTextColor(this.value)" placeholder="Select Color">
+                </span>
+                </button>
+                <a class="change-text change-text-font">
+                  <div class="icon">
+                    <img src="icons/font-size.svg" />
+                  </div>
+                  <span>Font Size</span>
+                  <div class="plus-minus-icons">
+                    <img src="icons/plus.svg">
+                    <img src="icons/minus.svg">
+                  </div>
+                </a>
+                <a class="change-text up-down">
+                  <div class="icon">
+                    <img src="icons/crop.svg" >
+                  </div>
+                  <span>Move  Line</span>
+                    <div class="up-down-icons">
+                      <img src="icons/arrow-up.svg">  <img src="icons/arrow-down.svg">
+                    
+                    </div>
+                </a>
+                <a class="change-text up-down">
+                  <div class="icon">
+                    <img src="icons/crop.svg" >
+                  </div>
+                  <span>Move Line</span>
+                    <div class="up-down-icons">
+                      <img src="icons/arrow-up.svg">
+                      <img src="icons/arrow-down.svg">
+                    </div>
+                </a>
+            </section>
+            
           </section>
           <div class="generate" >
             <button>Generate meme</button>
@@ -111,9 +161,10 @@
     <footer>
       <h3>IloveMeme's 2020 C - Your meme generator</h3>
     </footer>
+    <script src="lib/CanvasInput-master/CanvasInput.min.js"></script>
     <script src="javascript/storage-service.js"></script>
     <script src="javascript/utils-service.js"></script>
-    <script src="javascript/time-service.js"></script>
+    <script src="javascript/time-services.js"></script>
     <script src="javascript/canvas-services.js"></script>
     <script src="javascript/canvas-controller.js"></script>
   </body>
