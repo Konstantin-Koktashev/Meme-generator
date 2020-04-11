@@ -292,6 +292,26 @@ function dragLine(mouseX,mouseY){
   gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].yPosition = mouseY ;
 }
 
+function typeTextInBox(event){
+  if(!gCurrentMeme) return;
+  var letter=event.key
+  var currentLine=gCurrentMeme.lines[gCurrentMeme.selectedLineIdx]
+  if(gCurrentMeme.selectedLineIdx!==-1  && event.keyCode!==8){
+    currentLine.text+=letter
+  }
+  else{
+    currentLine.text= currentLine.text.substr(0, currentLine.text.length-2)
+  }
+  redrawCanvas()
+}
+
+ async function downloadMeme(){
+  var elLink=document.querySelector('.download-meme');
+  var img = gCanvas.toDataURL();
+  elLink.href=img
+  elLink.download = 'my-meme.jpg'
+}
+
 function _saveBooksToStorage() {
   saveToStorage(KEY, gMemes);
 }

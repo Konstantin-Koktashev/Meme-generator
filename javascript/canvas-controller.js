@@ -156,10 +156,8 @@ function onMoveLine(ev) {
   if(isDrag&&isLine){
     dragLine(mouseX,mouseY)
     redrawCanvas()
+    drawOuterRectengle()
   }
-  drawOuterRectengle()
-
-  
 }
 
 function onStopChangePosition(){
@@ -208,7 +206,13 @@ function onSelectLineDown() {
   switchLineDown();
 }
 
+function onDownload(elLink) {
+downloadMeme()
+}
 
-
+function onTypeText(event){
+  // debugger
+  typeTextInBox(event)
+}
 
 

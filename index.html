@@ -6,7 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body onload="onInit()">
+  <body onload="onInit()" onkeydown="onTypeText(event)" >
     <nav>
       <div class="logo">
       </div>
@@ -53,8 +53,8 @@
       </section>
     </section>
       <section class="upload-modal hide">
-        <div class="canvas-wrapper">
-          <canvas id="my-canvas" height="0" width="0" onmousemove="onMoveLine(event)" onmousedown="onCheckBorders(event)" onmouseup="onStopChangePosition(event)">
+        <div class="canvas-wrapper" >
+          <canvas id="my-canvas" height="0" width="0"  onmousemove="onMoveLine(event)" onmousedown="onCheckBorders(event)" onmouseup="onStopChangePosition(event)">
           </canvas>
         </div>
         <div class="user-panel">
@@ -172,7 +172,7 @@
             
           </section>
           <div class="generate" >
-            <button>Generate meme</button>
+          <button><a onclick="onDownload()" class="download-meme"> Generate meme</a></button>
           </div>
         </div>
       </section>
