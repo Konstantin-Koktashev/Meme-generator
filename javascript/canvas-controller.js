@@ -14,13 +14,13 @@ function renderCanvas() {
 }
 
 function addMeme(id) {
-  var meme=findMeme(parseInt(id))
+  var meme = findMeme(parseInt(id));
   hideTemplateModal();
   hideMain();
   showEditModal();
   renderCanvas();
-  setCurrentMeme(meme)
-  setInitialTextPosition()
+  setCurrentMeme(meme);
+  setInitialTextPosition();
   drawCanvasImgText(id);
 }
 
@@ -42,19 +42,49 @@ function hideMain() {
 function showMain() {
   document.querySelector(".main-page").classList.remove("hide");
 }
+
+function onShowTemplateModal() {
+  // hideMain()
+  hideEditModal();
+  showTemplateModal();
+}
 function drawCanvasImgText(id) {
   var img = new Image();
   var selectedImage = gImgs.find((img) => img.id + "" == id);
   img.src = selectedImage.url;
   img.onload = () => {
     gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
-    gCurrentMeme.lines.forEach(line=>{
-      setCanvasText(line.text, line.xPosition, line.yPosition, line.fillStyle, line.strokeStyle, line.fontSize,line.fontFamily)
-    })
-
+    gCurrentMeme.lines.forEach((line, idx) => {
+      setCanvasText(
+        line.text,
+        line.xPosition,
+        line.yPosition,
+        line.fillStyle,
+        line.strokeStyle,
+        line.fontSize,
+        line.fontFamily
+      );
+      updateOuterShape(line.text, line.xPosition, line.yPosition, idx);
+      drawOuterShape(
+        line.xPosition,
+        line.yPosition,
+        line.textWidth,
+        line.fontSize
+      );
+    });
   };
 }
 
+function drawOuterShape(x, y, width, height) {
+  height = +height;
+  gCtx.beginPath();
+  gCtx.strokeStyle = "White";
+  gCtx.rect(x - width / 2 - 5, y - height, width + 10, height + 10);
+  gCtx.stroke();
+  gCtx.closePath();
+}
+
+function removeOuterShape() {}
 
 function renderMemesCards() {
   // var filter = getFilter();
@@ -84,68 +114,110 @@ function renderMemesCards() {
   document.querySelector(".cards-container").innerHTML = strHtml.join("");
 }
 
-
 function onValueChange(el) {
   updateText(el.value);
-  drawCanvasImgText(gCurrentMeme.id)
+  drawCanvasImgText(gCurrentMeme.id);
 }
 
-function onAddNewLine(){
-  document.querySelector('.remove-line').classList.remove('hidden');
-  addNewLine()
+function onAddNewLine() {
+  document.querySelector(".remove-line").classList.remove("hidden");
+  addNewLine();
+  redrawCanvas();
+}
+
+function onRemoveLine() {
+  removeLine();
+  redrawCanvas();
+}
+
+function onCheckBorders(ev) {
+  
+  var mouseX = ev.offsetX;
+  var mouseY = ev.offsetY;
+  debugger
+  var isLine = CheckLine(mouseX, mouseY);
+  console.log(isLine);
+  
+  if (isLine) {
+    drawOuterRectengle();
+  }
+}
+
+
+function onChangeOutlineColor(value) {
+  changeOutLineColor(value);
+  redrawCanvas();
+}
+
+function onChangeFillColor(value) {
+  changeFillColor(value);
+  redrawCanvas();
+}
+function onChangeFont(value) {
+  changeFont(value);
+  redrawCanvas();
+}
+
+function onIncreaseFontSize() {
+  increaseFontSize();
+  redrawCanvas();
+}
+
+function onDecreaseFontSize() {
+  decreaseFontSize();
+  redrawCanvas();
+}
+
+function onMoveLineUp() {
+  moveLineUp();
+  redrawCanvas();
+}
+function onMoveLineDown() {
+  moveLineDown();
+  redrawCanvas();
+}
+
+function onSelectLineUp() {
+  switchLineUp();
+}
+function onSelectLineDown() {
+  switchLineDown();
+}
+
+function onMoveLine() {
+  console.log('hello');
   
 }
 
-function onRemoveLine(){
-  removeLine()
-}
 
-function onIncreaseFontSize(){
-  increaseFontSize()
-}
-
-function onDecreaseFontSize(){
-  decreaseFontSize()
-}
-
-function onMoveLineUp(){
-  moveLineUp()
-}
-function onMoveLineDown(){
-  moveLineDown()
-}
-
-function onSelectLineUp(){
-  switchLineUp()
-}
-function onSelectLineDown(){
-  switchLineDown()
-}
-
-
-
-
-
-function drawTextInBox(txt, font, x=gCanvas.width/5, y= gCanvas.height/16, w, h, angle) {
-  if(!w||!h){
-    w=gCanvas.width/2
-    h=100
+function drawTextInBox(
+  txt,
+  font,
+  x = gCanvas.width / 5,
+  y = gCanvas.height / 16,
+  w,
+  h,
+  angle
+) {
+  if (!w || !h) {
+    w = gCanvas.width / 2;
+    h = 100;
   }
-  if(!font) font="Comic Sans MS"
+  if (!font) font = "Comic Sans MS";
   angle = angle || 0;
   var fontHeight = 10;
   var hMargin = 2;
-  gCtx.font = fontHeight + 'px ' + font;
-  gCtx.textAlign = 'left';
-  gCtx.textBaseline = 'top';
+  gCtx.font = fontHeight + "px " + font;
+  gCtx.textAlign = "left";
+  gCtx.textBaseline = "top";
+  // drawTextInBox
   var txtWidth = gCtx.measureText(txt).width + 2 * hMargin;
   gCtx.save();
-  gCtx.translate(x+w/2, y);
+  gCtx.translate(x + w / 2, y);
   gCtx.rotate(angle);
-  gCtx.strokeRect(-w/2, 0, w, h);
+  gCtx.strokeRect(-w / 2, 0, w, h);
   gCtx.scale(w / txtWidth, h / fontHeight);
-  gCtx.translate(hMargin, 0)
-  gCtx.fillText(txt, -txtWidth/2, 0);
+  gCtx.translate(hMargin, 0);
+  gCtx.fillText(txt, -txtWidth / 2, 0);
   gCtx.restore();
 }
-

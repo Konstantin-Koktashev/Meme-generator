@@ -31,11 +31,11 @@
         </div>
         <p>Or</p>
       </section>
-      <button class="meme-template">
+      <button class="meme-template" onclick="onShowTemplateModal()">
         Select meme template
       </button>
 
-      <section class="meme-template-modal ">
+      <section class="meme-template-modal hide ">
           <section class="meme-template-header">
         <h3>Pick Your Meme</h3>
     </section>
@@ -54,7 +54,7 @@
     </section>
       <section class="upload-modal hide">
         <div class="canvas-wrapper">
-          <canvas id="my-canvas" height="0" width="0">
+          <canvas id="my-canvas" height="0" width="0" onmousemove="onMoveLine(event)" onmousedown="onCheckBorders(event)">
           </canvas>
         </div>
         <div class="user-panel">
@@ -114,7 +114,7 @@
                     <img src="icons/paint-format.svg" />
                   </div>
                   <span>Outline Color
-                  <input type="color" name="meme-color" onchange="ChangeMemeTextColor(this.value)" placeholder="Select Color">
+                  <input type="color" class="text-outline-color" name="meme-color" onchange="onChangeOutlineColor(this.value)" placeholder="Select Color">
                 </span>
                 </button>
                 <button class="change-text change-text-color">
@@ -122,7 +122,7 @@
                     <img src="icons/eyedropper.svg" />
                   </div>
                   <span>Text color
-                  <input type="color" name="meme-color" onchange="ChangeMemeTextColor(this.value)" placeholder="Select Color">
+                  <input type="color" class="text-inner-color" name="meme-color" onchange="onChangeFillColor(this.value)" placeholder="Select Color">
                 </span>
                 </button>
                 <a class="change-text change-text-font">
@@ -134,6 +134,18 @@
                     <img src="icons/plus.svg" onclick="onIncreaseFontSize()">
                     <img src="icons/minus.svg" onclick="onDecreaseFontSize()">
                   </div>
+                </a>
+                <a class="change-text change-text-font-type">
+                  <div class="icon">
+                    <img src="icons/font.svg" />
+                  </div>
+                  <span>Fonts</span>
+                  <select class="select-css" name="font" id="font" onchange="onChangeFont(this.value)">
+                    <option value="impact">Impact</option>
+                    <option value="lobster">Lobster</option>
+                    <option value="metal">Metal</option>
+                    <option value="cool">Cool</option>
+                </select>
                 </a>
                 <a class="change-text up-down">
                   <div class="icon">

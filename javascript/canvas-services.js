@@ -23,10 +23,10 @@ function creatMeme(category) {
   return {
     text: "Enter Text Here",
     // fontSize: 44,
-    font: "Impact",
-    align: "center",
-    color: "white",
-    strokeColor: `black`,
+    // font: "Impact",
+    // align: "center",
+    // color: "white",
+    // strokeColor: `black`,
     selectedLineIdx: 0,
     id: gId++,
     category,
@@ -39,15 +39,21 @@ function creatMeme(category) {
         strokeStyle: "black",
         fontSize: "50",
         fontFamily: "impact",
+        textWidth:0,
+        xPosition:0,
+        yPosition:0,
       },
       {
-        text: "Enter Text Here",
+        text: "Hello",
         align: "left",
         color: "red",
         fillStyle: "white",
         strokeStyle: "black",
         fontSize: "50",
         fontFamily: "impact",
+        textWidth:0,
+        xPosition:0,
+        yPosition:0,
       }
     ],
   };
@@ -94,11 +100,16 @@ function addNewLine() {
     strokeStyle: "black",
     fontSize: "50",
     fontFamily: "impact",
+    textWidth:0,
+    xPosition:0,
+    yPosition:0,
+   
   });
   gCurrentMeme.selectedLineIdx++;
    addNewLinesPosition()
-  redrawCanvas();
 }
+
+
 
 function removeLine() {
   --gCurrentMeme.selectedLineIdx;
@@ -109,21 +120,27 @@ function removeLine() {
     return;
   }
   gCurrentMeme.lines.pop();
-  redrawCanvas();
 }
+
+function updateOuterShape(text,xPosition,yPosition,idx){
+gCurrentMeme.lines[idx].textWidth=gCtx.measureText(text).width
+gCurrentMeme.lines[idx].xPosition=xPosition
+gCurrentMeme.lines[idx].yPosition=yPosition
+}
+
+
 
 function increaseFontSize() {
   var size = gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].fontSize;
   size = parseInt(size) + 10 + "";
   gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].fontSize = size;
-  redrawCanvas();
+  
 }
 
 function decreaseFontSize() {
   var size = gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].fontSize;
   size = parseInt(size) - 10 + "";
   gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].fontSize = size;
-  redrawCanvas();
 }
 
 function redrawCanvas() {
@@ -144,11 +161,10 @@ function getMemesForDisplay(filter) {
 
 function moveLineUp(){
   gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].yPosition+=200;
-  redrawCanvas();
+  
 }
 function moveLineDown(){
   gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].yPosition-=200;
-  redrawCanvas();
   
 }
 
@@ -176,6 +192,17 @@ function setCanvasText(
   gCtx.closePath();
 }
 
+function CheckLine(mouseX,mouseY){
+ const line=gCurrentMeme.lines.findIndex(line=>{
+    return mouseX > (line.xPosition - line.textWidth / 2) && mouseX < (line.xPosition + line.textWidth / 2) && mouseY > line.yPosition && mouseY < (line.yPosition + (+line.fontSize))
+  })
+  if (selectedMemeId !== -1) {
+    gCurrentMeme.selectedLineIdx=line
+  }
+return line>-1
+  
+}
+
 function switchLineUp() {
   if (gCurrentMeme.selectedLineIdx - 1 < 0) {
     return;
@@ -196,6 +223,41 @@ function setCurrTextInput() {
   const elMemeText = document.querySelector('input[name="meme-text"]');
   elMemeText.value = gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].text;
 }
+
+function changeOutLineColor(value){
+gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].strokeStyle=value
+}
+function changeFillColor(value){
+gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].fillStyle=value
+}
+
+
+// function changeFont(value){
+//   var fontFace;
+//   if(value==='lobster') fontFace== new FontFace('lobster', 'url(fonts/Lobster-Regular.ttf)');
+//   fontFace.load().then(function() {
+//     gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].font=fontFace
+//     redrawCanvas()
+  
+//   });
+// }
+
+
+function drawOuterRectengle(){
+  var line=gCurrentMeme.lines[gCurrentMeme.selectedLineIdx]
+  var height=+line.fontSize
+  var width=gCtx.measureText(line.text).width
+  var PosX=line.xPosition
+  var PosY=line.YPosition
+  gCtx.beginPath();
+  gCtx.strokeStyle = 'White';
+  gCtx.rect(PosX-(width/2)-5,PosY-height,width+10,height+10);
+  gCtx.stroke();
+  gCtx.closePath();
+}
+
+
+
 
 function findMeme(id) {
   return gMemes.find((meme) => meme.id === id);
