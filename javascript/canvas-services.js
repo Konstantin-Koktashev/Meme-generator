@@ -103,6 +103,7 @@ function addNewLine() {
     textWidth:0,
     xPosition:0,
     yPosition:0,
+    drag:false
    
   });
   gCurrentMeme.selectedLineIdx++;
@@ -194,9 +195,9 @@ function setCanvasText(
 
 function CheckLine(mouseX,mouseY){
  const line=gCurrentMeme.lines.findIndex(line=>{
-    return mouseX > (line.xPosition - line.textWidth / 2) && mouseX < (line.xPosition + line.textWidth / 2) && mouseY > line.yPosition && mouseY < (line.yPosition + (+line.fontSize))
+    return mouseX > (line.xPosition - line.textWidth / 2) && mouseX < (line.xPosition + line.textWidth / 2) && mouseY > (line.yPosition-(+line.fontSize)) && mouseY < (line.yPosition + (+line.fontSize))
   })
-  if (selectedMemeId !== -1) {
+  if (line !== -1) {
     gCurrentMeme.selectedLineIdx=line
   }
 return line>-1
@@ -248,7 +249,7 @@ function drawOuterRectengle(){
   var height=+line.fontSize
   var width=gCtx.measureText(line.text).width
   var PosX=line.xPosition
-  var PosY=line.YPosition
+  var PosY=line.yPosition
   gCtx.beginPath();
   gCtx.strokeStyle = 'White';
   gCtx.rect(PosX-(width/2)-5,PosY-height,width+10,height+10);
@@ -257,7 +258,14 @@ function drawOuterRectengle(){
 }
 
 
+function resetSelectedLine(){
+  gCurrentMeme.selectedLineIdx=0
+}
 
+
+function getMemeId(){
+  return gCurrentMeme.id
+}
 
 function findMeme(id) {
   return gMemes.find((meme) => meme.id === id);
@@ -265,6 +273,23 @@ function findMeme(id) {
 
 function setCurrentMeme(meme) {
   gCurrentMeme = meme;
+}
+
+function setDragTrue(){
+  gCurrentMeme.drag=true
+}
+function setDragFalse(){
+  gCurrentMeme.drag=false
+}
+
+function isDragMode(){
+  return gCurrentMeme.drag
+
+}
+
+function dragLine(mouseX,mouseY){
+  gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].xPosition = mouseX;
+  gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].yPosition = mouseY ;
 }
 
 function _saveBooksToStorage() {

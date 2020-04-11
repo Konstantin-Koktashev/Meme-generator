@@ -65,12 +65,12 @@ function drawCanvasImgText(id) {
         line.fontFamily
       );
       updateOuterShape(line.text, line.xPosition, line.yPosition, idx);
-      drawOuterShape(
-        line.xPosition,
-        line.yPosition,
-        line.textWidth,
-        line.fontSize
-      );
+      // drawOuterShape(
+      //   line.xPosition,
+      //   line.yPosition,
+      //   line.textWidth,
+      //   line.fontSize
+      // );
     });
   };
 }
@@ -134,14 +134,38 @@ function onCheckBorders(ev) {
   
   var mouseX = ev.offsetX;
   var mouseY = ev.offsetY;
-  debugger
   var isLine = CheckLine(mouseX, mouseY);
-  console.log(isLine);
   
   if (isLine) {
     drawOuterRectengle();
+    setDragTrue()
+
+  }
+  else{
+    var memeId=getMemeId()
+    drawCanvasImgText(memeId)
+    resetSelectedLine()
+
   }
 }
+function onMoveLine(ev) {
+  var mouseX = ev.offsetX;
+  var mouseY = ev.offsetY;
+  var isDrag=isDragMode()
+  var isLine = CheckLine(mouseX, mouseY);
+  if(isDrag&&isLine){
+    dragLine(mouseX,mouseY)
+    redrawCanvas()
+  }
+  drawOuterRectengle()
+
+  
+}
+
+function onStopChangePosition(){
+  setDragFalse()
+}
+
 
 
 function onChangeOutlineColor(value) {
@@ -184,40 +208,7 @@ function onSelectLineDown() {
   switchLineDown();
 }
 
-function onMoveLine() {
-  console.log('hello');
-  
-}
 
 
-function drawTextInBox(
-  txt,
-  font,
-  x = gCanvas.width / 5,
-  y = gCanvas.height / 16,
-  w,
-  h,
-  angle
-) {
-  if (!w || !h) {
-    w = gCanvas.width / 2;
-    h = 100;
-  }
-  if (!font) font = "Comic Sans MS";
-  angle = angle || 0;
-  var fontHeight = 10;
-  var hMargin = 2;
-  gCtx.font = fontHeight + "px " + font;
-  gCtx.textAlign = "left";
-  gCtx.textBaseline = "top";
-  // drawTextInBox
-  var txtWidth = gCtx.measureText(txt).width + 2 * hMargin;
-  gCtx.save();
-  gCtx.translate(x + w / 2, y);
-  gCtx.rotate(angle);
-  gCtx.strokeRect(-w / 2, 0, w, h);
-  gCtx.scale(w / txtWidth, h / fontHeight);
-  gCtx.translate(hMargin, 0);
-  gCtx.fillText(txt, -txtWidth / 2, 0);
-  gCtx.restore();
-}
+
+
