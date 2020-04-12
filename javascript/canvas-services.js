@@ -5,7 +5,7 @@ var gId = 101;
 const KEY = "memes";
 var gPageIdx = 1;
 var gImgs = [
-  { id: 1, url: "../images/meme-imgs(square)/1.jpg", keywords: ["happy"] },
+  { id: 1, url: "images/meme-imgs(square)/1.jpg", keywords: ["happy"] },
 ];
 var gMemes = [];
 var gFilter;
@@ -16,17 +16,13 @@ function creatMemes() {
     gMemes.push(creatMeme());
   }
   gId = 101;
+  console.log(12);
 }
 
 function creatMeme(category) {
   if (!category) category = "random";
   return {
     text: "Enter Text Here",
-    // fontSize: 44,
-    // font: "Impact",
-    // align: "center",
-    // color: "white",
-    // strokeColor: `black`,
     selectedLineIdx: 0,
     id: gId++,
     category,
@@ -64,7 +60,7 @@ function loadImages() {
   gMemes.forEach((meme) => {
     var image = {
       id: gId++,
-      url: `../images/meme-imgs(square)/${meme.id}.jpg`,
+      url: `images/meme-imgs(square)/${meme.id}.jpg`,
     };
     images.push(image);
   });
@@ -233,15 +229,15 @@ gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].fillStyle=value
 }
 
 
-// function changeFont(value){
-//   var fontFace;
-//   if(value==='lobster') fontFace== new FontFace('lobster', 'url(fonts/Lobster-Regular.ttf)');
-//   fontFace.load().then(function() {
-//     gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].font=fontFace
-//     redrawCanvas()
+function changeFont(value){
+  var fontFace;
+  if(value==='lobster') fontFace== new FontFace('lobster', 'url(fonts/Lobster-Regular.ttf)');
+  fontFace.load().then(function() {
+    gCurrentMeme.lines[gCurrentMeme.selectedLineIdx].font=fontFace
+    redrawCanvas()
   
-//   });
-// }
+  });
+}
 
 
 function drawOuterRectengle(){
@@ -300,7 +296,7 @@ function typeTextInBox(event){
     currentLine.text+=letter
   }
   else{
-    currentLine.text= currentLine.text.substr(0, currentLine.text.length-2)
+    currentLine.text= currentLine.text.substr(0, currentLine.text.length-1)
   }
   redrawCanvas()
 }

@@ -9,8 +9,8 @@ function renderCanvas() {
   var elContainerHeight = document.querySelector(".canvas-wrapper")
     .offsetHeight;
   var elContainerWidth = document.querySelector(".canvas-wrapper").offsetWidth;
-  gCanvas.width = elContainerWidth;
-  gCanvas.height = elContainerHeight;
+  gCanvas.width = percentage(elContainerWidth,80) 
+  gCanvas.height = percentage(elContainerHeight,80)
 }
 
 function addMeme(id) {
@@ -65,12 +65,6 @@ function drawCanvasImgText(id) {
         line.fontFamily
       );
       updateOuterShape(line.text, line.xPosition, line.yPosition, idx);
-      // drawOuterShape(
-      //   line.xPosition,
-      //   line.yPosition,
-      //   line.textWidth,
-      //   line.fontSize
-      // );
     });
   };
 }
@@ -211,7 +205,6 @@ downloadMeme()
 }
 
 function onTypeText(event){
-  // debugger
   typeTextInBox(event)
 }
 
