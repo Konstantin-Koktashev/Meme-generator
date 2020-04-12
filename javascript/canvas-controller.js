@@ -9,8 +9,8 @@ function renderCanvas() {
   var elContainerHeight = document.querySelector(".canvas-wrapper")
     .offsetHeight;
   var elContainerWidth = document.querySelector(".canvas-wrapper").offsetWidth;
-  gCanvas.width = percentage(elContainerWidth,100) 
-  gCanvas.height = percentage(elContainerHeight,70)
+  gCanvas.width = percentage(elContainerWidth, 100);
+  gCanvas.height = percentage(elContainerHeight, 70);
 }
 
 function addMeme(id) {
@@ -43,10 +43,10 @@ function showMain() {
   document.querySelector(".main-page").classList.remove("hide");
 }
 
-function onReplaceImage(){
-  showMain()
-  showTemplateModal()
-  hideEditModal()
+function onReplaceImage() {
+  showMain();
+  showTemplateModal();
+  hideEditModal();
 }
 
 function onShowTemplateModal() {
@@ -55,9 +55,12 @@ function onShowTemplateModal() {
   showTemplateModal();
 }
 function drawCanvasImgText(id) {
+  if (!id) id = makeId();
   var img = new Image();
   var selectedImage = gImgs.find((img) => img.id + "" == id);
-  img.src = selectedImage.url;
+  if (!selectedImage) selectedImage = getCurrentImage();
+  if (!selectedImage.url) img.src = selectedImage.src;
+  else img.src = selectedImage.url;
   img.onload = () => {
     gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
     gCurrentMeme.lines.forEach((line, idx) => {
@@ -73,7 +76,7 @@ function drawCanvasImgText(id) {
       updateOuterShape(line.text, line.xPosition, line.yPosition, idx);
     });
   };
-  document.querySelector('main').style.backgroundColor="white";
+  document.querySelector("main").style.backgroundColor = "white";
 }
 
 function drawOuterShape(x, y, width, height) {
@@ -115,6 +118,14 @@ function renderMemesCards() {
   document.querySelector(".cards-container").innerHTML = strHtml.join("");
 }
 
+function onUploadImage(ev) {
+  hideTemplateModal();
+  hideMain();
+  showEditModal();
+  renderCanvas();
+  renderUploadedImage(ev);
+}
+
 function onValueChange(el) {
   updateText(el.value);
   drawCanvasImgText(gCurrentMeme.id);
@@ -122,6 +133,7 @@ function onValueChange(el) {
 
 function onAddNewLine() {
   document.querySelector(".remove-line").classList.remove("hidden");
+
   addNewLine();
   redrawCanvas();
 }
@@ -132,43 +144,37 @@ function onRemoveLine() {
 }
 
 function onCheckBorders(ev) {
-  
   var mouseX = ev.offsetX;
   var mouseY = ev.offsetY;
   var isLine = CheckLine(mouseX, mouseY);
-  
+
   if (isLine) {
     drawOuterRectengle();
-    setDragTrue()
-
-  }
-  else{
-    var memeId=getMemeId()
-    drawCanvasImgText(memeId)
-    resetSelectedLine()
-
+    setDragTrue();
+  } else {
+    var memeId = getMemeId();
+    drawCanvasImgText(memeId);
+    resetSelectedLine();
   }
 }
 function onMoveLine(ev) {
   var mouseX = ev.offsetX;
   var mouseY = ev.offsetY;
-  var isDrag=isDragMode()
+  var isDrag = isDragMode();
   var isLine = CheckLine(mouseX, mouseY);
-  if(isDrag&&isLine){
-    dragLine(mouseX,mouseY)
-    redrawCanvas()
-    drawOuterRectengle()
+  if (isDrag && isLine) {
+    dragLine(mouseX, mouseY);
+    redrawCanvas();
+    drawOuterRectengle();
   }
 }
 
-
-
-function onStopChangePosition(){
-  setDragFalse()
+function onStopChangePosition() {
+  setDragFalse();
 }
 
-function onOpenTextEditor(){
-  document.querySelector('.text-edit-modal').classList.toggle('hidden');
+function onOpenTextEditor() {
+  document.querySelector(".text-edit-modal").classList.toggle("hidden");
 }
 
 function onChangeOutlineColor(value) {
@@ -212,11 +218,9 @@ function onSelectLineDown() {
 }
 
 function onDownload(elLink) {
-downloadMeme()
+  downloadMeme();
 }
 
-function onTypeText(event){
-  typeTextInBox(event)
+function onTypeText(event) {
+  typeTextInBox(event);
 }
-
-
