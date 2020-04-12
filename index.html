@@ -9,6 +9,7 @@
   <body onload="onInit()" onkeydown="onTypeText(event)" >
     <nav>
       <div class="logo">
+        
       </div>
       <section class="user-options">
         <a href="" class="sign-up">Sign Up</a>
@@ -26,7 +27,7 @@
       <section class="main-page">
       <section class="upload">
         <div class="upload-btn-wrapper">
-          <button class="btn">Upload a file</button>
+          <button class="btn" onclick="onUploadImg()">Upload a file</button>
           <input type="file" name="myfile" />
         </div>
         <p>Or</p>
@@ -62,26 +63,9 @@
             <h2>Meme editor</h2>
           </section>
           <section class="user-controls">
-            <div class="upper-buttons">
-              <div class="inner-text">
-                <section class="inside-text-header">
-                  <h5>Text Inside</h5>
-                </section>
-                <section class="icon">
-                  <img src="icons/innerText.svg" />
-                </section>
-              </div>
-              <div class="outer-text">
-                <section class="outer-text-header">
-                  <h5>Text Outside</h5>
-                </section>
-                <section class="icon">
-                  <img src="icons/outerText.svg" />
-                </section>
-              </div>
-            </div>
+
             <div class="middle-buttons">
-              <button class="add-image">
+              <button class="add-image" onclick="onReplaceImage()">
                 <div class="icon">
                   <img src="icons/image.svg" />
                 </div>
@@ -99,32 +83,31 @@
                 </div>
                 <span>Remove Line</span>
               </button>
-              <input type="text" name="meme-text" onkeyup="onValueChange(this)" placeholder="Enter Text">
             </div>
             <section class="text-edit">
-              <button class="change-text-cog change-text">
+              <button class="change-text-cog change-text" onclick="onOpenTextEditor()">
                 <div class="icon">
                   <img src="icons/cogs.svg" />
                 </div>
                 <span>Change Text </span>
               </button>
-                <div class="text-edit-modal">
-                <button class="change-text change-text-color">
+                <div class="text-edit-modal hidden ">
+                <a class="change-text change-text-color">
                   <div class="icon">
                     <img src="icons/paint-format.svg" />
                   </div>
                   <span>Outline Color
                   <input type="color" class="text-outline-color" name="meme-color" onchange="onChangeOutlineColor(this.value)" placeholder="Select Color">
                 </span>
-                </button>
-                <button class="change-text change-text-color">
+              </a>
+                <a class="change-text change-text-color">
                   <div class="icon">
                     <img src="icons/eyedropper.svg" />
                   </div>
                   <span>Text color
                   <input type="color" class="text-inner-color" name="meme-color" onchange="onChangeFillColor(this.value)" placeholder="Select Color">
                 </span>
-                </button>
+              </a>
                 <a class="change-text change-text-font">
                   <div class="icon">
                     <img src="icons/font-size.svg" />
@@ -147,32 +130,11 @@
                     <option value="cool">Cool</option>
                 </select>
                 </a>
-                <a class="change-text up-down">
-                  <div class="icon">
-                    <img src="icons/crop.svg" >
-                  </div>
-                  <span>Move  Line</span>
-                    <div class="up-down-icons">
-                      <img src="icons/arrow-up.svg" onclick="onMoveLineUp()">
-                      <img src="icons/arrow-down.svg" onclick="onMoveLineDown()">
-                    
-                    </div>
-                </a>
-                <a class="change-text up-down">
-                  <div class="icon">
-                    <img src="icons/crop.svg" >
-                  </div>
-                  <span>Pick Line</span>
-                    <div class="up-down-icons">
-                      <img src="icons/arrow-up.svg" onclick="onSelectLineUp()">
-                      <img src="icons/arrow-down.svg" onclick="onSelectLineDown()">
-                    </div>
-                </a>
+
             </section>
-            
           </section>
           <div class="generate" >
-          <button><a onclick="onDownload()" class="download-meme"> Generate meme</a></button>
+          <a  onclick="onDownload()" class="download-meme"> Generate meme</a>
           </div>
         </div>
       </section>

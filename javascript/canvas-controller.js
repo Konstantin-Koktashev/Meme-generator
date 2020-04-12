@@ -9,8 +9,8 @@ function renderCanvas() {
   var elContainerHeight = document.querySelector(".canvas-wrapper")
     .offsetHeight;
   var elContainerWidth = document.querySelector(".canvas-wrapper").offsetWidth;
-  gCanvas.width = percentage(elContainerWidth,80) 
-  gCanvas.height = percentage(elContainerHeight,80)
+  gCanvas.width = percentage(elContainerWidth,100) 
+  gCanvas.height = percentage(elContainerHeight,70)
 }
 
 function addMeme(id) {
@@ -43,6 +43,12 @@ function showMain() {
   document.querySelector(".main-page").classList.remove("hide");
 }
 
+function onReplaceImage(){
+  showMain()
+  showTemplateModal()
+  hideEditModal()
+}
+
 function onShowTemplateModal() {
   // hideMain()
   hideEditModal();
@@ -67,6 +73,7 @@ function drawCanvasImgText(id) {
       updateOuterShape(line.text, line.xPosition, line.yPosition, idx);
     });
   };
+  document.querySelector('main').style.backgroundColor="white";
 }
 
 function drawOuterShape(x, y, width, height) {
@@ -154,11 +161,15 @@ function onMoveLine(ev) {
   }
 }
 
+
+
 function onStopChangePosition(){
   setDragFalse()
 }
 
-
+function onOpenTextEditor(){
+  document.querySelector('.text-edit-modal').classList.toggle('hidden');
+}
 
 function onChangeOutlineColor(value) {
   changeOutLineColor(value);
