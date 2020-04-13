@@ -41,13 +41,14 @@
         <h3>Pick Your Meme</h3>
     </section>
         <section class="search-bar">
-          <label for="search"></label>
+          <label for="search "></label>
           <input
             type="text"
             id="search"
             name="search-bar"
             placeholder="Search here"
-          />
+            class=""
+           onkeyup="renderMemesCards()"/>
         </section>
         <div class="cards-container">
         </div>
@@ -154,39 +155,13 @@
         </h1>
         <h3>If iLoveIMG's Meme generator has helped you, you can help us too 
         </h3>
-        <div class="share-btns-container">
-          <!-- <button class="facebook" data-sharer="facebook" data-hashtag="hashtag" data-url="">
-            <div class="icon">
-            <img src="icons/iconmonstr-facebook-4.svg" alt="">
-          </div>
-          <span>Share on Facebook</span>
-        </button>
-          <button class="whatsapp" data-sharer="whatsapp" data-title="Share To Whatsapp" data-url="">
-            <div class="icon">
-              <img src="icons/iconmonstr-whatsapp-4.svg" alt="">
-            </div>
-            <span>Share on Whatsapp</span>
-          </button>
-          <button class="telegram" data-sharer="telegram" data-title="Share To Telegram" data-url="" data-to="+44555-5555">
-            <div class="icon">
-              <img src="icons/iconmonstr-telegram-4.svg" alt="">
-            </div>
-            <span>Share on Telegram</span>
-          </button>
-          <button class="reddit" data-sharer="reddit" data-url="https://ellisonleao.github.io/sharer.js/">
-            <div class="icon">
-              <img src="icons/iconmonstr-reddit-4.svg" alt="">
-            </div>
-            <span>Share on Reddit</span>
-          </button>
-          <button class="email" data-sharer="email" data-title="Share Email" data-url="https://ellisonleao.github.io/sharer.js/" data-subject="Hey! Check out that URL" data-to="some@email.com">
-            <div class="icon">
-              <img src="icons/iconmonstr-email-1.svg" alt="">
-            </div>
-            <span>Share on Email</span>
-          </button> -->
+        <div class="share-container">
+          <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
+            <input name="img" id="imgData" type="hidden" />
+            <button class="upload-btn" type="submit">Publish <img src="icons/iconmonstr-facebook-4.svg" alt=""></button>
+            <div class="share-container"></div>
+          </form>
         </div>
-
 
       </section>
     </main>

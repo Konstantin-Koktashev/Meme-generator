@@ -62,16 +62,11 @@ function drawOuterShape(x, y, width, height) {
 function removeOuterShape() {}
 
 function renderMemesCards() {
-  // var filter = getFilter();
-  // if(!filter) filter='all';
-  var memesInGenre = getMemesForDisplay("filter");
-  // var memes = getMemes(memesInGenre);
-  // var searchString=getSearchString()
-  // if(searchString) {
-  //   var foundMeme=findMeme()
-  //   if(!foundMeme) return;
-  //   memes=[foundMeme];
-  // }
+  var searchString=getSearchString()
+  setFilter(searchString)
+  var filter = getFilter();
+  if(!filter) filter='recommended';
+  var memesInGenre = getMemesForDisplay(filter);
   var strHtml;
   strHtml = memesInGenre.map((meme) => {
     return `<article class="meme">
@@ -89,6 +84,11 @@ function renderMemesCards() {
   document.querySelector(".cards-container").innerHTML = strHtml.join("");
 }
 
+
+function getSearchString() {
+  var searchString = document.querySelector("#search").value.trim();
+  return searchString
+}
 function onUploadImage(ev) {
   hideTemplateModal();
   hideMain();

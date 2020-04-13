@@ -11,6 +11,8 @@ var gMemes = [];
 var gFilter;
 var gCurrentMeme;
 var gCurrentImage;
+const gGenre = ["happy", "sad", "funny", "recommended"];
+
 
 
 
@@ -30,6 +32,7 @@ function creatMeme(category) {
     selectedLineIdx: 0,
     id: gId++,
     category,
+    genre:gGenre[getRandomIntInclusive(0, gGenre.length - 1)],
     lines: [
       {
         text: 'Enter Text Here',
@@ -59,7 +62,13 @@ function creatMeme(category) {
   };
 }
 
+function getFilter(){
+  return gFilter
+}
 
+function setFilter(txt){
+  gFilter=txt
+}
 
 function updateCurrentImage(img) {
   var image = new Image();
@@ -194,8 +203,9 @@ function renderCanvas() {
 }
 
 function getMemesForDisplay(filter) {
-  if (!filter) filter = 'all';
-  var memes = gMemes;
+  if(filter==='recommended') return gMemes;
+  var memes = gMemes.filter(meme=>meme.genre===filter);
+  if (!memes.length) return gMemes;
   return memes;
 }
 
@@ -338,6 +348,9 @@ function drawShapeAround(x,y,width,height){
 function findMeme(id) {
   return gMemes.find((meme) => meme.id === id);
 }
+function getAllMemes(){
+  return gMemes
+}
 
 function setCurrentMeme(meme) {
   gCurrentMeme = meme;
@@ -375,71 +388,43 @@ function typeTextInBox(event) {
 async function downloadMeme() {
   var elLink = document.querySelector('.download-meme');
   var img = gCanvas.toDataURL();
-  setShareLinks(img)
   elLink.href = img;
   elLink.download = 'my-meme.jpg';
 }
 
-const dataURItoBlob = (dataURI) => {
-  let byteString = atob(dataURI.split(',')[1]);
-  let ab = new ArrayBuffer(byteString.length);
-  let ia = new Uint8Array(ab);
-  for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
+
+
+function uploadImg(elForm, ev) {
+  ev.preventDefault();
+  document.getElementById('imgData').value = gCanvas.toDataURL("image/jpeg");
+  function onSuccess(uploadedImgUrl) {
+      uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+      document.querySelector('.share-container').innerHTML = `
+      
+      <a class="share-btn" >
+         Ready to share! 
+         <img src="icons/iconmonstr-facebook-4.svg" alt="" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+      </a>`
   }
-  return new Blob([ia], {
-      type: 'image/jpeg'
-  });
+  doUploadImg(elForm, onSuccess);
 }
 
-function setShareLinks(imgLink){
-  imgLink=encodeURIComponent(imgLink)
-  console.log(imgLink);
-  
- console.log(imgLink);
- var ElContainer= document.querySelector('.share-btns-container');
- console.log(ElContainer);
- debugger
- 
- var strHtml=`
- <button class="facebook" data-sharer="facebook" data-hashtag="hashtag" data-url="${imgLink}">
- <div class="icon">
- <img src="icons/iconmonstr-facebook-4.svg" alt="">
-</div>
-<span>Share on Facebook</span>
-</button>
-<button class="whatsapp" data-sharer="whatsapp" data-title="Share To Whatsapp" data-url="${imgLink}">
- <div class="icon">
-   <img src="icons/iconmonstr-whatsapp-4.svg" alt="">
- </div>
- <span>Share on Whatsapp</span>
-</button>
-<button class="telegram" data-sharer="telegram" data-title="Share To Telegram" data-url="${imgLink}" data-to="+44555-5555">
- <div class="icon">
-   <img src="icons/iconmonstr-telegram-4.svg" alt="">
- </div>
- <span>Share on Telegram</span>
-</button>
-<button class="reddit" data-sharer="reddit" data-url="${imgLink}">
- <div class="icon">
-   <img src="icons/iconmonstr-reddit-4.svg" alt="">
- </div>
- <span>Share on Reddit</span>
-</button>
-<button class="email" data-sharer="email" data-title="Share Email" data-url="${imgLink}" data-subject="Hey! Check out that URL" data-to="some@email.com">
- <div class="icon">
-   <img src="icons/iconmonstr-email-1.svg" alt="">
- </div>
- <span>Share on Email</span>
-</button>`
-
-ElContainer.innerHTML=strHtml
-  
+function doUploadImg(elForm, onSuccess) {
+  var formData = new FormData(elForm);
+  fetch('http://ca-upload.com/here/upload.php', {
+      method: 'POST',
+      body: formData
+  })
+      .then(function (res) {
+          return res.text()
+      })
+      .then(onSuccess)
+      .catch(function (err) {
+          console.error(err)
+      })
 }
 
-function _saveBooksToStorage() {
-  saveToStorage(KEY, gMemes);
-}
+
 
 function percentage(num, per) {
   return (num / 100) * per;
