@@ -9,7 +9,7 @@ function onInit() {
 
 function addMeme(id) {
   var meme = findMeme(parseInt(id));
-  var memeImg=gImgs.find(img=>''+img.id===id)
+  var memeImg=findImg(id)
   updateCurrentImage(memeImg)
   hideTemplateModal();
   hideMain();
@@ -51,29 +51,12 @@ function onShowTemplateModal() {
   showTemplateModal();
 }
 function drawCanvasImgText() {
-    gCtx.drawImage(getCurrentImage(), 0, 0, gCanvas.width, gCanvas.height);
-    gCurrentMeme.lines.forEach((line, idx) => {
-      setCanvasText(
-        line.text,
-        line.xPosition,
-        line.yPosition,
-        line.fillStyle,
-        line.strokeStyle,
-        line.fontSize,
-        line.fontFamily
-      );
-      updateOuterShape(line.text, line.xPosition, line.yPosition, idx);
-    });
+  drawCanvas()
   document.querySelector("main").style.backgroundColor = "white";
 }
 
 function drawOuterShape(x, y, width, height) {
-  height = +height;
-  gCtx.beginPath();
-  gCtx.strokeStyle = "White";
-  gCtx.rect(x - width / 2 - 5, y - height, width + 10, height + 10);
-  gCtx.stroke();
-  gCtx.closePath();
+    drawShapeAround(x,y,width,height)
 }
 
 function removeOuterShape() {}
@@ -174,6 +157,7 @@ function onMoveLine(ev) {
 
 function onStopChangePosition() {
   setDragFalse();
+  drawCanvasImgText()
 }
 
 function onOpenTextEditor() {
@@ -222,6 +206,11 @@ function onSelectLineDown() {
 
 function onDownload(elLink) {
   downloadMeme();
+  setTimeout(() => {
+    hideEditModal()
+    showMain()
+    document.querySelector('.share-modal').classList.remove('hide');
+  }, 1000);
 }
 
 function onTypeText(event) {

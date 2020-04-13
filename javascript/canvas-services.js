@@ -182,16 +182,15 @@ function updateCanvas() {
 }
 
 function renderCanvas() {
-  var height = getCurrentImage().height;
-  var width = getCurrentImage().width;
-  gCanvas.width = width;
-  gCanvas.height = height;
+  var imgHeight = getCurrentImage().height;
+  var imgWidth = getCurrentImage().width;
+  var bodyWidth = window.innerWidth;
+  gCanvas.width = imgWidth;
+  gCanvas.height = imgHeight;
+  if(imgWidth>bodyWidth){
+    gCanvas.width=bodyWidth
+  }
 
-  //TODO
-  // To Render Full height, Resizing Needed
-  // var elContainerHeight = document.querySelector(".canvas-wrapper")
-  //   .offsetHeight;
-  // var elContainerWidth = document.querySelector(".canvas-wrapper").offsetWidth;
 }
 
 function getMemesForDisplay(filter) {
@@ -300,12 +299,40 @@ function drawOuterRectengle() {
   gCtx.closePath();
 }
 
+function drawCanvas(){
+  gCtx.drawImage(getCurrentImage(), 0, 0, gCanvas.width, gCanvas.height);
+  gCurrentMeme.lines.forEach((line, idx) => {
+    setCanvasText(
+      line.text,
+      line.xPosition,
+      line.yPosition,
+      line.fillStyle,
+      line.strokeStyle,
+      line.fontSize,
+      line.fontFamily
+    );
+    updateOuterShape(line.text, line.xPosition, line.yPosition, idx);
+  });
+}
+
 function resetSelectedLine() {
   gCurrentMeme.selectedLineIdx = 0;
 }
 
 function getMemeId() {
   return gCurrentMeme.id;
+}
+function findImg(id){
+ return gImgs.find(img=>''+img.id===id)
+}
+
+function drawShapeAround(x,y,width,height){
+  height = +height;
+  gCtx.beginPath();
+  gCtx.strokeStyle = "White";
+  gCtx.rect(x - width / 2 - 5, y - height, width + 10, height + 10);
+  gCtx.stroke();
+  gCtx.closePath();
 }
 
 function findMeme(id) {
@@ -348,8 +375,66 @@ function typeTextInBox(event) {
 async function downloadMeme() {
   var elLink = document.querySelector('.download-meme');
   var img = gCanvas.toDataURL();
+  setShareLinks(img)
   elLink.href = img;
   elLink.download = 'my-meme.jpg';
+}
+
+const dataURItoBlob = (dataURI) => {
+  let byteString = atob(dataURI.split(',')[1]);
+  let ab = new ArrayBuffer(byteString.length);
+  let ia = new Uint8Array(ab);
+  for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([ia], {
+      type: 'image/jpeg'
+  });
+}
+
+function setShareLinks(imgLink){
+  imgLink=encodeURIComponent(imgLink)
+  console.log(imgLink);
+  
+ console.log(imgLink);
+ var ElContainer= document.querySelector('.share-btns-container');
+ console.log(ElContainer);
+ debugger
+ 
+ var strHtml=`
+ <button class="facebook" data-sharer="facebook" data-hashtag="hashtag" data-url="${imgLink}">
+ <div class="icon">
+ <img src="icons/iconmonstr-facebook-4.svg" alt="">
+</div>
+<span>Share on Facebook</span>
+</button>
+<button class="whatsapp" data-sharer="whatsapp" data-title="Share To Whatsapp" data-url="${imgLink}">
+ <div class="icon">
+   <img src="icons/iconmonstr-whatsapp-4.svg" alt="">
+ </div>
+ <span>Share on Whatsapp</span>
+</button>
+<button class="telegram" data-sharer="telegram" data-title="Share To Telegram" data-url="${imgLink}" data-to="+44555-5555">
+ <div class="icon">
+   <img src="icons/iconmonstr-telegram-4.svg" alt="">
+ </div>
+ <span>Share on Telegram</span>
+</button>
+<button class="reddit" data-sharer="reddit" data-url="${imgLink}">
+ <div class="icon">
+   <img src="icons/iconmonstr-reddit-4.svg" alt="">
+ </div>
+ <span>Share on Reddit</span>
+</button>
+<button class="email" data-sharer="email" data-title="Share Email" data-url="${imgLink}" data-subject="Hey! Check out that URL" data-to="some@email.com">
+ <div class="icon">
+   <img src="icons/iconmonstr-email-1.svg" alt="">
+ </div>
+ <span>Share on Email</span>
+</button>`
+
+ElContainer.innerHTML=strHtml
+  
 }
 
 function _saveBooksToStorage() {

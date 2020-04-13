@@ -175,7 +175,7 @@ footer {
 
 .upload-modal {
   position: absolute;
-  height: 100%;
+  /* height: 100%; */
   width: 100%;
   bottom: 0;
   left: 0;
@@ -188,6 +188,7 @@ footer {
   padding: 0 1em;
   gap: 0 1em;
   margin-top: 1em;
+  padding-block-end: 1em;
 }
 .upload-modal h2{
   font-size: 1.5rem;
@@ -196,9 +197,9 @@ footer {
 
 .user-panel {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   margin-right: 2em;
+  
 }
 .user-panel span{
   font-size: 1.2rem;
@@ -493,13 +494,7 @@ canvas{
   margin-top: 2em;
 }
 
-.hide {
-  display: none;
-}
 
-.hideme {
-  display: none;
-}
 
 a{
   outline: none;
@@ -517,6 +512,84 @@ header h1{
   font-size: 2rem;
 }
 
-.upload-modal{
-  max-height: 400px!important;
+
+
+.text-edit-modal a{
+  width: 90%;
+  align-self: center;
 }
+.change-text-cog{
+width: 90%;
+align-self: center;
+margin: 0 auto;
+}
+
+.user-options{
+  width: 200px;
+}
+
+
+.shadow {
+  -moz-box-shadow:    inset 0 0 10px #000000;
+  -webkit-box-shadow: inset 0 0 10px #000000;
+  box-shadow:         inset 0 0 10px #000000;
+}
+
+/* Share Buttons */
+
+.share-modal{
+  display: flex;
+  flex-direction: column;
+  padding: 2.3em;
+}
+
+.share-btns-container{
+  /* display: flex; */
+  flex-direction: column;
+  /* align-items: center; */
+}
+
+.share-btns-container button{
+  display: flex;
+  margin: 0 auto;
+  width: 200px;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+.share-btns-container span{
+  flex-grow: 1;
+}
+
+
+
+.hide {
+  display: none;
+}
+
+.hideme {
+  display: none;
+}
+
+@media (max-width: 950px) {
+  .upload-modal{
+    grid-template-columns: 1fr;
+
+  }
+}
+
+@media(max-width:500px){
+  .upload-modal{
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .user-panel{
+    margin-right: 0;
+  }
+}
+
+
+
+
+

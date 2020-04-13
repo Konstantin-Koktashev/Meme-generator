@@ -53,7 +53,7 @@
         </div>
       </section>
     </section>
-      <section class="upload-modal hide">
+      <section class="upload-modal  hide ">
         <div class="canvas-wrapper" >
           <a class="change-text change-text-font">
             <div class="icon">
@@ -68,7 +68,7 @@
           <canvas id="my-canvas" height="0" width="0"  onmousemove="onMoveLine(event)" onmousedown="onCheckBorders(event)" onmouseup="onStopChangePosition(event)">
           </canvas>
         </div>
-        <div class="user-panel">
+        <div class="user-panel shadow">
           <section class="panel-header">
             <h2>Meme editor</h2>
           </section>
@@ -148,7 +148,49 @@
           </div>
         </div>
       </section>
+
+      <section class="share-modal hide">
+        <h1>How can I thank you? Spread the word!
+        </h1>
+        <h3>If iLoveIMG's Meme generator has helped you, you can help us too 
+        </h3>
+        <div class="share-btns-container">
+          <!-- <button class="facebook" data-sharer="facebook" data-hashtag="hashtag" data-url="">
+            <div class="icon">
+            <img src="icons/iconmonstr-facebook-4.svg" alt="">
+          </div>
+          <span>Share on Facebook</span>
+        </button>
+          <button class="whatsapp" data-sharer="whatsapp" data-title="Share To Whatsapp" data-url="">
+            <div class="icon">
+              <img src="icons/iconmonstr-whatsapp-4.svg" alt="">
+            </div>
+            <span>Share on Whatsapp</span>
+          </button>
+          <button class="telegram" data-sharer="telegram" data-title="Share To Telegram" data-url="" data-to="+44555-5555">
+            <div class="icon">
+              <img src="icons/iconmonstr-telegram-4.svg" alt="">
+            </div>
+            <span>Share on Telegram</span>
+          </button>
+          <button class="reddit" data-sharer="reddit" data-url="https://ellisonleao.github.io/sharer.js/">
+            <div class="icon">
+              <img src="icons/iconmonstr-reddit-4.svg" alt="">
+            </div>
+            <span>Share on Reddit</span>
+          </button>
+          <button class="email" data-sharer="email" data-title="Share Email" data-url="https://ellisonleao.github.io/sharer.js/" data-subject="Hey! Check out that URL" data-to="some@email.com">
+            <div class="icon">
+              <img src="icons/iconmonstr-email-1.svg" alt="">
+            </div>
+            <span>Share on Email</span>
+          </button> -->
+        </div>
+
+
+      </section>
     </main>
+
     <footer>
       <h3>IloveMeme's 2020 C - Your meme generator</h3>
     </footer>
@@ -156,6 +198,7 @@
     <script src="javascript/storage-service.js"></script>
     <script src="javascript/utils-service.js"></script>
     <script src="javascript/time-services.js"></script>
+    <script src="node_modules/sharer.js/sharer.min.js"></script>
     <script src="javascript/canvas-services.js"></script>
     <script src="javascript/canvas-controller.js"></script>
   </body>
