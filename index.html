@@ -55,6 +55,16 @@
     </section>
       <section class="upload-modal hide">
         <div class="canvas-wrapper" >
+          <a class="change-text change-text-font">
+            <div class="icon">
+              <img src="icons/font-size.svg" />
+            </div>
+            <span>Resize Image</span>
+            <div class="plus-minus-icons">
+              <img src="icons/plus.svg" onclick="onSizeImageUp()">
+              <img src="icons/minus.svg" onclick="onSizeImageDown()">
+            </div>
+          </a>
           <canvas id="my-canvas" height="0" width="0"  onmousemove="onMoveLine(event)" onmousedown="onCheckBorders(event)" onmouseup="onStopChangePosition(event)">
           </canvas>
         </div>

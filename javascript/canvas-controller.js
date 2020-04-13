@@ -10,7 +10,6 @@ function onInit() {
 function addMeme(id) {
   var meme = findMeme(parseInt(id));
   var memeImg=gImgs.find(img=>''+img.id===id)
-  debugger
   updateCurrentImage(memeImg)
   hideTemplateModal();
   hideMain();
@@ -32,7 +31,6 @@ function hideEditModal() {
 }
 function showEditModal() {
   document.querySelector(".upload-modal").classList.remove("hide");
-  // document.querySelector('footer').classList.add('hide');
   document.querySelector('header').classList.add('hide');
 }
 function hideMain() {
@@ -49,19 +47,11 @@ function onReplaceImage() {
 }
 
 function onShowTemplateModal() {
-  // hideMain()
   hideEditModal();
   showTemplateModal();
 }
-function drawCanvasImgText(id) {
-  if (!id) id = makeId();
-  var img = new Image();
-  var selectedImage = gImgs.find((img) => img.id + "" == id);
-  if (!selectedImage) selectedImage = getCurrentImage();
-  if (!selectedImage.url) img.src = selectedImage.src;
-  else img.src = selectedImage.url;
-  img.onload = () => {
-    gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+function drawCanvasImgText() {
+    gCtx.drawImage(getCurrentImage(), 0, 0, gCanvas.width, gCanvas.height);
     gCurrentMeme.lines.forEach((line, idx) => {
       setCanvasText(
         line.text,
@@ -74,7 +64,6 @@ function drawCanvasImgText(id) {
       );
       updateOuterShape(line.text, line.xPosition, line.yPosition, idx);
     });
-  };
   document.querySelector("main").style.backgroundColor = "white";
 }
 
@@ -128,6 +117,21 @@ function onUploadImage(ev) {
 function onValueChange(el) {
   updateText(el.value);
   drawCanvasImgText(gCurrentMeme.id);
+}
+
+function onSizeImageUp(){
+  increaseImgSize()
+  renderCanvas()
+  setInitialTextPosition();
+  drawCanvasImgText()
+
+}
+
+function onSizeImageDown(){
+  decreaseImgSize()
+  renderCanvas()
+  setInitialTextPosition();
+  drawCanvasImgText()
 }
 
 function onAddNewLine() {
