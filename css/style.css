@@ -306,7 +306,7 @@ box-shadow: inset 0 1px 5px #c4c5c7; */
   right: 0;
   top: 0;
   z-index: 1001;
-  /* display: grid; */
+  display: grid;
   background-color: #fff;
   grid-template-columns: 4fr 1fr;
   padding: 0 1em;
@@ -508,4 +508,8 @@ a{
 
 header h1{
   font-size: 2rem;
+}
+
+.upload-modal{
+  max-height: 400px!important;
 }

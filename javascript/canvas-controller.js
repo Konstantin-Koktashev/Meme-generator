@@ -5,16 +5,13 @@ function onInit() {
   renderMemesCards();
 }
 
-function renderCanvas() {
-  var elContainerHeight = document.querySelector(".canvas-wrapper")
-    .offsetHeight;
-  var elContainerWidth = document.querySelector(".canvas-wrapper").offsetWidth;
-  gCanvas.width = percentage(elContainerWidth, 100);
-  gCanvas.height = percentage(elContainerHeight, 70);
-}
+
 
 function addMeme(id) {
   var meme = findMeme(parseInt(id));
+  var memeImg=gImgs.find(img=>''+img.id===id)
+  debugger
+  updateCurrentImage(memeImg)
   hideTemplateModal();
   hideMain();
   showEditModal();
@@ -35,6 +32,8 @@ function hideEditModal() {
 }
 function showEditModal() {
   document.querySelector(".upload-modal").classList.remove("hide");
+  // document.querySelector('footer').classList.add('hide');
+  document.querySelector('header').classList.add('hide');
 }
 function hideMain() {
   document.querySelector(".main-page").classList.add("hide");
@@ -122,8 +121,8 @@ function onUploadImage(ev) {
   hideTemplateModal();
   hideMain();
   showEditModal();
-  renderCanvas();
   renderUploadedImage(ev);
+
 }
 
 function onValueChange(el) {
